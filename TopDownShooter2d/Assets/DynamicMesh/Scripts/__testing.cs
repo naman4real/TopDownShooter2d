@@ -58,9 +58,9 @@ public class __testing : MonoBehaviour {
     private void CreateTileMesh() {
         Mesh mesh = new Mesh();
 
-        int width = 4;
-        int height = 4;
-        float tileSize = 10;
+        int width = 70;
+        int height = 70;
+        float tileSize = 3;
 
         Vector3[] vertices = new Vector3[4 * (width * height)];
         Vector2[] uv = new Vector2[4 * (width * height)];

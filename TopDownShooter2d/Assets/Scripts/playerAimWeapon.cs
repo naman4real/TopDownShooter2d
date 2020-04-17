@@ -25,10 +25,11 @@ public class playerAimWeapon : MonoBehaviour
     public Transform gunEndPointTransform;
     public Transform shellTransform;
     public Animator animatorAim;
+    private SoundManager s;
  
     void Start()
     {
-        
+        s = GameObject.Find("SoundManager").GetComponent<SoundManager>();
     }
 
     // Update is called once per frame
@@ -63,15 +64,19 @@ public class playerAimWeapon : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Vector3 mousePosition = UtilsClass.GetMouseWorldPosition();
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            mousePosition.z = 0f;
             animatorAim.SetTrigger("Shoot");
 
+            s.PlayOneShot("PistolShot");
+   
             OnShoot?.Invoke(this, new OnShootEventArgs
             {
                 gunEndPointPosition = gunEndPointTransform.position,
                 shootPosition = mousePosition,
                 shellPosition = shellTransform.position,
-            });
+            }) ;
+
 
             OnHit?.Invoke(this, new OnHitEventArgs
             {

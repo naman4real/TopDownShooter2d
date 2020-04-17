@@ -18,31 +18,42 @@ public class Testing : MonoBehaviour {
     
     //[SerializeField] private PathfindingDebugStepVisual pathfindingDebugStepVisual;
     [SerializeField] private PathfindingVisual pathfindingVisual;
+    [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject player;
+    private Vector3 playerNewPos;
+
     //[SerializeField] private CharacterPathfindingMovementHandler characterPathfinding;
-    private Pathfinding pathfinding;
+    private SimplePathfinding pathfinding;
     private float cellSize;
     public static bool move = false;
     public static List<PathNode> p;
     
 
     private void Start() {
-        pathfinding = new Pathfinding(20, 10);
+        pathfinding = new SimplePathfinding(20, 10);
         //pathfindingDebugStepVisual.Setup(pathfinding.GetGrid());
-        cellSize = Pathfinding.cellSize;
+        cellSize = SimplePathfinding.cellSize;
         pathfindingVisual.SetGrid(pathfinding.GetGrid());
-        player.transform.position = Vector2.zero + new Vector2(Pathfinding.cellSize / 2, Pathfinding.cellSize / 2 + 1.5f);
+        enemy.transform.position = Vector2.zero + new Vector2(SimplePathfinding.cellSize / 2, SimplePathfinding.cellSize / 2 + 1.4f);
     }
 
     private void Update() {
+        
         if (Input.GetMouseButtonDown(0)) 
         {
             Testing.move = true;
+
             Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouseWorldPosition.z = 0f;
+
             pathfinding.GetGrid().GetXY(mouseWorldPosition, out int x, out int y);
             List<PathNode> path = pathfinding.FindPath(0, 0, x, y);
             Testing.p = path;
+
+            playerNewPos = new Vector3(path[path.Count - 1].x, path[path.Count - 1].y) * cellSize + Vector3.one * cellSize / 2;
+            playerNewPos.y+=1.4f;
+            player.transform.position = playerNewPos;
+
             if (path != null) {
                 for (int i=0; i<path.Count - 1; i++) 
                 {

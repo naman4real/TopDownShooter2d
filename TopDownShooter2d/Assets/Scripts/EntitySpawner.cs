@@ -14,22 +14,36 @@ public class EntitySpawner : ComponentSystem
     private Transform shellPosition;
     private bool flag = false;
     private playerAimWeapon aim;
-    private RaycastHit2D hit;
     private Vector3 hitDirection;
     private Vector3 reverseHitDirection;
     private flyingBody fl;
     private Transform en;
     private float slowDownFactor=5f;
+    private SoundManager s;
+
+    public RaycastHit2D hit;
+    public static Dictionary<string, GameObject> gameDict;
+
 
 
 
     protected override void OnStartRunning()
     {
-        Debug.Log("running");
+        
+        s = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+       
+        gameDict = new Dictionary<string, GameObject>()
+        {
+            {"Enemy", GameObject.Find("Enemy") },
+            {"Enemy (1)", GameObject.Find("Enemy (1)") },
+            {"Enemy (2)", GameObject.Find("Enemy (2)") },
+            {"Enemy (3)", GameObject.Find("Enemy (3)") },
+        };
+    
         shellPosition = GameObject.Find("ShellPosition").GetComponent<Transform>();
         aim = GameObject.Find("Player").GetComponent<playerAimWeapon>();
-        fl = GameObject.Find("Enemy").GetComponent<flyingBody>();
-        en = GameObject.Find("Enemy").GetComponent<Transform>();
+        //fl = GameObject.Find("Enemy").GetComponent<flyingBody>();
+        //en = GameObject.Find("Enemy").transform.Find("bloodSpawner").GetComponent<Transform>();
         
 
     }
@@ -54,21 +68,18 @@ public class EntitySpawner : ComponentSystem
                 f = pr.prefabEntity5;
                 g = pr.prefabEntity6;
                 l = new Entity[] { a, b, c, d, e, f, g };
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 25; i++)
                 {
                     Entity spawnedEntityBlood = EntityManager.Instantiate(l[rand.Next(l.Length)]);
                     EntityManager.AddComponent(spawnedEntityBlood, typeof(MoveSpeedComponent));
                     EntityManager.AddComponent(spawnedEntityBlood, typeof(RotationEulerXYZ));
-                    var go = new GameObject();
-                    var col = go.AddComponent<BoxCollider2D>();
-                    EntityManager.AddComponentObject(spawnedEntityBlood, col);
                     EntityManager.SetComponentData(spawnedEntityBlood, new Translation
                     {
-                        Value = en.transform.position + new Vector3(UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f, 2f), 0f)
-                    });
+                        Value = en.position + new Vector3( UnityEngine.Random.Range(-2f, 2f), UnityEngine.Random.Range(-2f,2f), 0f)
+                    }); ;
                     EntityManager.SetComponentData(spawnedEntityBlood, new MoveSpeedComponent
                     {
-                        moveSpeed = UnityEngine.Random.Range(900f,1000f)
+                        moveSpeed = UnityEngine.Random.Range(10f,30f)
                     }) ;
                     EntityManager.SetComponentData(spawnedEntityBlood, new RotationEulerXYZ
                     {
@@ -85,36 +96,49 @@ public class EntitySpawner : ComponentSystem
             {
                 if (moveSpeedComponent.moveSpeed > 0f)
                 {
-                    tr.Value.y += reverseHitDirection.y * moveSpeedComponent.moveSpeed * Time.DeltaTime;
+                    tr.Value.y += hitDirection.y * moveSpeedComponent.moveSpeed * Time.DeltaTime;
                     //tr.Value.z += hitDirection.z * moveSpeedComponent.moveSpeed * Time.DeltaTime;
-                    tr.Value.x += reverseHitDirection.x * moveSpeedComponent.moveSpeed * Time.DeltaTime;
-                    r.Value.z += 360f * (moveSpeedComponent.moveSpeed / 40f) * Time.DeltaTime;
+                    tr.Value.x += hitDirection.x * moveSpeedComponent.moveSpeed * Time.DeltaTime;
+                    r.Value.z += 360f * (moveSpeedComponent.moveSpeed / 5f) * Time.DeltaTime;
                 }
-                moveSpeedComponent.moveSpeed -= moveSpeedComponent.moveSpeed * 4f * Time.DeltaTime;
+                moveSpeedComponent.moveSpeed -= moveSpeedComponent.moveSpeed * 3f * Time.DeltaTime;
             });
 
 
 
         }
 
-
+        //else if (!fl.spawnLotsOfBlood)
+        //{
+        //    Entities.ForEach((ref Translation tr, ref MoveSpeedComponent moveSpeedComponent, ref RotationEulerXYZ r) =>
+        //    {
+        //        tr.Value.y += 0f;
+        //        tr.Value.x += 0f;
+                
+        //    });
+        //}
 
 
         // if the enemy is just hit on mouse click
 
-        else if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("pressed");
+            //Debug.Log("pressed");
             hit = Physics2D.Raycast(aim.gunEndPointTransform.position, aim.gunEndPointTransform.right);
             if (hit)
             {
                 Debug.Log("hit");
                 Enemy enemy = hit.transform.GetComponent<Enemy>();
-                if (enemy != null)
+                
+                //Debug.Log(hit.transform.gameObject.name);
+                if (hit.transform.tag=="enemy")
                 {
+                    
+                    fl = gameDict[hit.transform.gameObject.name].GetComponent<flyingBody>();
+                    en = gameDict[hit.transform.gameObject.name].transform.Find("bloodSpawner").GetComponent<Transform>();
                     fl.isHit = true;
-                    hitDirection = (en.transform.position - aim.gunEndPointTransform.position).normalized;
-                    reverseHitDirection = (aim.gunEndPointTransform.position - en.transform.position).normalized;
+                    hitDirection = (en.position - aim.gunEndPointTransform.position).normalized;
+                    reverseHitDirection = (aim.gunEndPointTransform.position - en.position).normalized;
                     flag = true;
                     float3 mousePosition = UtilsClass.GetMouseWorldPosition();
                     Entities.ForEach((ref bloodToEntity pr) =>
@@ -134,16 +158,17 @@ public class EntitySpawner : ComponentSystem
                             EntityManager.AddComponent(spawnedEntityBlood, typeof(RotationEulerXYZ));
                             EntityManager.SetComponentData(spawnedEntityBlood, new Translation
                             {
-                                Value = en.transform.position + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1.5f, 1.5f), 0f)
+                                Value = en.position + new Vector3(UnityEngine.Random.Range(-1f, 1f), UnityEngine.Random.Range(-1.2f, -0.3f), 0f)
                             });
                             EntityManager.SetComponentData(spawnedEntityBlood, new MoveSpeedComponent
                             {
-                                moveSpeed = UnityEngine.Random.Range(20f,30f)
+                                moveSpeed = UnityEngine.Random.Range(10f,15f)
                             });
                         }
                         
                         l = new Entity[] { };
-                        
+                        s.PlayOneShot("Hit");
+
                     });
                     Debug.Log("enemy hit");
                 }
@@ -179,9 +204,5 @@ public class EntitySpawner : ComponentSystem
                 moveSpeedComponent.moveSpeed -= moveSpeedComponent.moveSpeed * slowDownFactor * Time.DeltaTime;
             });
         }
-
-
-
-
     }
 }

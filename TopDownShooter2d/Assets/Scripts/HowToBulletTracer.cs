@@ -18,14 +18,14 @@ using CodeMonkey.Utils;
 public class HowToBulletTracer : MonoBehaviour {
     [SerializeField] playerAimWeapon p;
     [SerializeField] private Material weaponTracerMaterial;
-    [SerializeField] private Sprite shootFlashSprite;
-    [SerializeField] private Sprite shellSprite;
+    //[SerializeField] private Sprite shootFlashSprite;
+    //[SerializeField] private Sprite shellSprite;
 
     private void Start()
     {
         p.OnShoot+=Shoot;
     }
-    private void Shoot(object sender, playerAimWeapon.OnShootEventArgs e) {
+    private void Shoot(object sender, playerAimWeapon.OnShootEventArgs e) {        
         CreateWeaponTracer(e.gunEndPointPosition, e.shootPosition);       
         ShakeCamera(.15f, .05f);
         //CreateShootFlash(e.gunEndPointPosition);
@@ -34,14 +34,14 @@ public class HowToBulletTracer : MonoBehaviour {
 
 
 
-    private void SpawnShells(Vector3 shellPosition)
-    {
-        World_Sprite worldSprite = World_Sprite.Create(shellPosition, shellSprite);
-    }
-    private void CreateShootFlash(Vector3 spawnPosition) {
-        World_Sprite worldSprite = World_Sprite.Create(spawnPosition, shootFlashSprite);
-        FunctionTimer.Create(worldSprite.DestroySelf, .05f);
-    }
+    //private void SpawnShells(Vector3 shellPosition)
+    //{
+    //    World_Sprite worldSprite = World_Sprite.Create(shellPosition, shellSprite);
+    //}
+    //private void CreateShootFlash(Vector3 spawnPosition) {
+    //    World_Sprite worldSprite = World_Sprite.Create(spawnPosition, shootFlashSprite);
+    //    FunctionTimer.Create(worldSprite.DestroySelf, .05f);
+    //}
 
     private void CreateWeaponTracer(Vector3 fromPosition, Vector3 targetPosition) {
         Vector3 dir = (targetPosition - fromPosition).normalized;
@@ -49,7 +49,7 @@ public class HowToBulletTracer : MonoBehaviour {
         float distance = Vector3.Distance(fromPosition, targetPosition);
         Vector3 tracerSpawnPosition = fromPosition + dir * distance * .5f;
         Material tmpWeaponTracerMaterial = new Material(weaponTracerMaterial);
-        tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(1f, distance / 128f));
+        tmpWeaponTracerMaterial.SetTextureScale("_MainTex", new Vector2(1f, distance / 64f));
         World_Mesh worldMesh = World_Mesh.Create(tracerSpawnPosition, eulerZ, 0.8f, distance, tmpWeaponTracerMaterial, null, 10000);
 
         int frame = 0;

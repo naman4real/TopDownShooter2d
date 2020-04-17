@@ -10,6 +10,7 @@ public class camFollow : MonoBehaviour
     private Vector3 offset;            //Private variable to store the offset distance between the player and camera
 
     // Use this for initialization
+
     void Start()
     {
         //Calculate and store the offset value by getting the distance between the player's position and camera's position.

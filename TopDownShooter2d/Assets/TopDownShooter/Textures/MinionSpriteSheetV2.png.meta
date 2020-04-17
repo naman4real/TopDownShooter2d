@@ -1,7 +1,40 @@
 fileFormatVersion: 2
 guid: e5061656283cd2f48acca463c6fb558d
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 619149785089488908
+    second: MinionSpriteSheetV2_0
+  - first:
+      213: 4081994545895400901
+    second: MinionSpriteSheetV2_1
+  - first:
+      213: 5346882060517635145
+    second: MinionSpriteSheetV2_2
+  - first:
+      213: -2097568901245933796
+    second: MinionSpriteSheetV2_3
+  - first:
+      213: -85742694515218688
+    second: MinionSpriteSheetV2_4
+  - first:
+      213: 391326914296491731
+    second: MinionSpriteSheetV2_5
+  - first:
+      213: -638027889805456976
+    second: MinionSpriteSheetV2_6
+  - first:
+      213: 8135088112871099941
+    second: MinionSpriteSheetV2_7
+  - first:
+      213: 481708241030949677
+    second: MinionSpriteSheetV2_8
+  - first:
+      213: -7090261634840524886
+    second: MinionSpriteSheetV2_9
+  - first:
+      213: -334416698844613421
+    second: MinionSpriteSheetV2_10
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -40,7 +73,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -84,7 +117,238 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_0
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 416
+        width: 69
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08b40bf279a79800800000000000000
+      internalID: 619149785089488908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 412
+        width: 66
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c56d23896826a830800000000000000
+      internalID: 4081994545895400901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_2
+      rect:
+        serializedVersion: 2
+        x: 288
+        y: 419
+        width: 65
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 944ff01b7e0f33a40800000000000000
+      internalID: 5346882060517635145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_3
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 459
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c17645d9230f3e2e0800000000000000
+      internalID: -2097568901245933796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_4
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 457
+        width: 42
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 007e55f39716fcef0800000000000000
+      internalID: -85742694515218688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_5
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 275
+        width: 62
+        height: 83
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3de21b551c54e6500800000000000000
+      internalID: 391326914296491731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_6
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 276
+        width: 47
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b98a5fb3054527f0800000000000000
+      internalID: -638027889805456976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_7
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 276
+        width: 66
+        height: 87
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52e4f208983a5e070800000000000000
+      internalID: 8135088112871099941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_8
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 266
+        width: 80
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2b2700d71f5fa600800000000000000
+      internalID: 481708241030949677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_9
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 136
+        width: 51
+        height: 116
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa700c2eb945a9d90800000000000000
+      internalID: -7090261634840524886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MinionSpriteSheetV2_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 8
+        width: 125
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d47862c8c9eb5bf0800000000000000
+      internalID: -334416698844613421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

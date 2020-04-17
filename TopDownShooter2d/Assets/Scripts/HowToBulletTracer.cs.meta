@@ -1,11 +1,15 @@
 fileFormatVersion: 2
 guid: 8aba83bd22507e14c9d71ec6c5a743c5
-timeCreated: 1527261494
-licenseType: Pro
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - player: {fileID: 8605978032606026012, guid: 7235ccf4639569e40894e22d3bc34828,
+      type: 3}
+  - weaponTracerMaterial: {fileID: 2100000, guid: e3140a7d5d4706a438f43aaaff7c662b,
+      type: 2}
+  - shootFlashSprite: {instanceID: 0}
+  - shellSprite: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

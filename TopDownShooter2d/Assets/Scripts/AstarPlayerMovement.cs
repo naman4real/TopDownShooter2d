@@ -15,10 +15,10 @@ public class AstarPlayerMovement : MonoBehaviour
 
     void Start()
     {
-        transform.position=Vector3.zero + new Vector3(Pathfinding.cellSize/2, Pathfinding.cellSize/2 + 1.5f);
+        transform.position=Vector3.zero + new Vector3(SimplePathfinding.cellSize/2, SimplePathfinding.cellSize/2 + 1.4f);
         //transform.position = Vector3.zero + new Vector3(Testing.p[0].x, Testing.p[0].y) * cellSize + Vector3.one * cellSize / 2;
 
-        cellSize = Pathfinding.cellSize;
+        cellSize = SimplePathfinding.cellSize;
         currentPos = transform.position;
         nextPos = transform.position;
     }
@@ -32,31 +32,15 @@ public class AstarPlayerMovement : MonoBehaviour
             currentPos = new Vector3(Testing.p[node].x, Testing.p[node].y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
             nextPos = new Vector3(Testing.p[node+1].x, Testing.p[node+1].y) * cellSize + new Vector3(cellSize / 2, cellSize / 2);
             moveDir = (nextPos - currentPos).normalized;
-            transform.position += moveDir * 10f * Time.deltaTime;
-            Debug.Log(transform.position - new Vector3(0, 1.5f, 0) + " "+nextPos+" "+ Vector3.Distance(transform.position - new Vector3(0, 1.5f, 0), nextPos));
+            //transform.position += moveDir * 7f * Time.deltaTime;
+            transform.position = Vector2.MoveTowards(transform.position, nextPos + new Vector3(0f,1.4f), 7f * Time.deltaTime);
+            //Debug.Log(transform.position - new Vector3(0, 1.4f, 0) + " "+nextPos+" "+ Vector3.Distance(transform.position - new Vector3(0, 1.5f, 0), nextPos));
 
-            if (Vector3.Distance(transform.position- new Vector3(0,1.5f,0), nextPos) <= 0.05f)
+            if (Vector3.Distance(transform.position- new Vector3(0,1.4f,0), nextPos) <= 0.1f)
             {
                 node++;
             }
         }
-        //if (canMove)
-        //{
-        //    int i=-1;
-        //    while (i < Testing.p.Count-1)
-        //    {
-
-
-        //        if(Vector3.Distance(transform.position, nextPos) <= 0.0001f)
-        //        {
-        //            i++;
-        //            currentPos = new Vector3(Testing.p[i].x, Testing.p[i].y) * cellSize + Vector3.one * cellSize / 2;
-        //            nextPos = new Vector3(Testing.p[i + 1].x, Testing.p[i + 1].y) * cellSize + Vector3.one * cellSize / 2;
-        //            moveDir = (nextPos - currentPos).normalized;
-
-        //        }
-        //        transform.position += moveDir * 10f * Time.deltaTime;
-        //    }
-        //}
+     
     }
 }
