@@ -20,11 +20,9 @@ public class Pathfinding : MonoBehaviour
     public float cellSize;
     public int cellWidth;
     public int cellHeight;
-    private NativeArray<JobHandle> jobHandleArray;
 
     [SerializeField] private Transform playerTransform;
     public List<Transform> enemyTransform;
-    int j=0;
 
 
 
@@ -32,14 +30,13 @@ public class Pathfinding : MonoBehaviour
 
     private void Start()
     {
-        grid = new Grid<PathNode>(cellWidth, cellHeight, cellSize, Vector3.zero, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
-        //enemyTransform.position = Vector3.zero + new Vector3(cellSize / 2, cellSize / 2 + 1.4f);
+        grid = new Grid<PathNode>(cellWidth, cellHeight, cellSize, Vector3.zero, (Grid<PathNode> g, int x, int y) 
+            => new PathNode(g, x, y));
         
 
     }
     private void Update() 
     {
-
         grid.GetXY(playerTransform.position, out int x, out int y);
                       
         enemyPos = new NativeArray<float3>(enemyTransform.Count, Allocator.TempJob);
@@ -63,7 +60,8 @@ public class Pathfinding : MonoBehaviour
             height = cellHeight,
             enemyPosition = enemyPos,
             deltaTime = Time.deltaTime,
-            cellSize = cellSize
+            cellSize = cellSize,
+            playerPosition=playerTransform.position
 
         };
         JobHandle jobHandle = findPathJob.Schedule(enemyTransform.Count,1);
@@ -78,16 +76,6 @@ public class Pathfinding : MonoBehaviour
         enemyPos.Dispose();
         enemyPosCoord.Dispose();
 
-
-
-
-
-        //}
-
-
-
-        //Debug.Log("Time: " + ((Time.realtimeSinceStartup - startTime) * 1000f));
-        //}, 1f);
     }
 
     [BurstCompile]
@@ -100,12 +88,14 @@ public class Pathfinding : MonoBehaviour
         public NativeArray<float3> enemyPosition;
         public float deltaTime;
         public float cellSize;
+        public float3 playerPosition;
 
         private int node;
         private float3 nextPos;
 
 
-        public void Execute(int index) {
+        public void Execute(int index) 
+        {
             int2 gridSize = new int2(width, height);
 
             NativeArray<PathNode> pathNodeArray = new NativeArray<PathNode>(gridSize.x * gridSize.y, Allocator.Temp);
@@ -229,31 +219,18 @@ public class Pathfinding : MonoBehaviour
             if (endNode.cameFromNodeIndex == -1) {
                 // Didn't find a path!
                 Debug.Log("Didn't find a path!");
-            } else {
+            } 
+            else 
+            {
                 // Found a path
                 NativeList<int2> path = CalculatePath(pathNodeArray, endNode);
 
-                //foreach (int2 pathPosition in path)
-                //{
-                //    Debug.Log(pathPosition + " path yo");
-                //}
                 if (node < path.Length - 1)
                 {
-                    //currentPos = new float3(path[node].x, path[node].y, 0f) * cellSize + new float3(cellSize / 2, cellSize / 2, 0f);
                     nextPos = new float3(path[node + 1][0], path[node + 1][1],0f) * cellSize + new float3(cellSize / 2, cellSize / 2,0f);
-                    enemyPosition[index] = Vector3.MoveTowards(enemyPosition[index], nextPos, 7f * deltaTime);
-
-                    //if (Vector3.Distance(enemyPosition - new float3(0, 1.4f, 0), nextPos) <= 0.1f)
-                    //{
-                    //    node++;
-                    //}
+                    if(Vector3.Distance(enemyPosition[index],playerPosition)>15f)
+                        enemyPosition[index] = Vector3.MoveTowards(enemyPosition[index], nextPos, 7f * deltaTime);
                 }
-
-
-
-
-
-
                 path.Dispose();
             }
 
